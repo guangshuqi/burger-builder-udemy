@@ -4,7 +4,8 @@ const initialState = {
     ingredients: null,
     totalPrice: 3,
     error: false,
-    loading: false
+    loading: false,
+    building: false
 
 }
 
@@ -24,6 +25,7 @@ const ingredientsReducer = (state = initialState, action) => {
             return {
                 ingredients: newIngredients,
                 totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingType],
+                building: true
             }
 
         case actionTypes.REMOVE_INGREDIENT:
@@ -35,7 +37,8 @@ const ingredientsReducer = (state = initialState, action) => {
                     ...state.ingredients,
                     [action.ingType]: state.ingredients[action.ingType] - 1
                 },
-                totalPrice: state.totalPrice - INGREDIENT_PRICES[action.ingType]
+                totalPrice: state.totalPrice - INGREDIENT_PRICES[action.ingType],
+                building: true
             }
         case actionTypes.SET_INITIAL_STATE:
             return {
@@ -48,7 +51,8 @@ const ingredientsReducer = (state = initialState, action) => {
                 },
                 totalPrice: 3,
                 error: false,
-                loading: false
+                loading: false,
+                building: false
 
             }
         case actionTypes.FETCH_INIT:

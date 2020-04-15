@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Redirect } from 'react-router-dom';
 import Button from "../../../components/UI/Button/Button";
 import classes from "./ContactData.module.css";
 import axios from "../../../axios-orders";
@@ -107,9 +108,9 @@ class ContactData extends Component {
       orderData: formData
     };
     this.props.onOrderBurger(order, this.props.token)
-    if (!this.props.purchasing) {
-      this.props.history.push('/')
-    }
+    // if (!this.props.purchasing) {
+    //   this.props.history.push('/')
+    // }
   };
 
   checkValidity(value, rules) {
@@ -175,14 +176,20 @@ class ContactData extends Component {
               />
             )
           )}
-          <Button btnType="Success" disabled={!this.state.formIsValid} clicked={this.orderHandler}>
+          <Button btnType="Success" disabled={!this.state.formIsValid}>
             ORDER
           </Button>
         </form>
       );
     }
+    let redirect = null
+    if (!this.props.purchasing) {
+      redirect = (<Redirect to='/' />)
+    }
     return (
+
       <div className={classes.ContactData}>
+        {redirect}
         <h4>Enter your Contact Data</h4>
         {form}
       </div>
