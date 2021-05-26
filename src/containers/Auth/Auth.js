@@ -8,6 +8,7 @@ import * as actions from '../../store/actions/index'
 // import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler'
 import { Redirect } from 'react-router-dom'
 import Spinner from '../../components/UI/Spinner/Spinner'
+import { checkValidity } from '../../shared/utility'
 export class Auth extends Component {
     state = {
         controls: {
@@ -47,26 +48,14 @@ export class Auth extends Component {
             this.props.onSetAuthRedirectPath()
         }
     }
-    checkValidity(value, rules) {
-        let isValid = true;
-        if (rules.required) {
-            isValid = value.trim() !== '' && isValid;
-        }
-        if (rules.minLength) {
-            isValid = value.length >= rules.minLength && isValid
-        }
-        if (rules.maxLength) {
-            isValid = value.length <= rules.maxLength && isValid
-        }
-        return isValid
-    }
+
     inputChangedHandler = (event, controlName) => {
         const updatedControls = {
             ...this.state.controls,
             [controlName]: {
                 ...this.state.controls[controlName],
                 value: event.target.value,
-                valid: this.checkValidity(event.target.value, this.state.controls[controlName].validation),
+                valid: checkValidity(event.target.value, this.state.controls[controlName].validation),
                 touched: true
             }
         }

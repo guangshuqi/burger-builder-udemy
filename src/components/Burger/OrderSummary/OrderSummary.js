@@ -4,7 +4,7 @@ import Button from "../../../components/UI/Button/Button";
 
 const orderSummary = props => {
   // useEffect(() => {
-  //   console.log("Order Summary rendered");
+
   // });
 
   const ingredientsSummary = Object.keys(props.ingredients).map(igKey => {
